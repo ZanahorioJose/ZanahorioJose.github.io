@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panini 世界杯球星卡清单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .football-decoration {
+            position: fixed;
+            font-size: 120px;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .football-1 { top: 10%; left: 5%; transform: rotate(-15deg); }
+        .football-2 { top: 30%; right: 8%; transform: rotate(25deg); }
+        .football-3 { bottom: 20%; left: 10%; transform: rotate(-30deg); }
+        .football-4 { bottom: 10%; right: 15%; transform: rotate(15deg); }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #1e8449 0%, #27ae60 50%, #2ecc71 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        header h1 .ball {
+            font-size: 1.2em;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: #fff;
+            border: 2px solid #e8e8e8;
+            border-radius: 16px;
+            padding: 25px 35px;
+            text-align: center;
+            min-width: 160px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #27ae60;
+        }
+
+        .stat-box .icon {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+
+        .stat-box .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .stat-box .label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+        }
+
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+        }
+
+        .legend-color.green {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.4);
+        }
+
+        .legend-color.red {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 450px;
+            padding: 14px 24px;
+            border-radius: 30px;
+            border: 2px solid #ddd;
+            background: #fff;
+            color: #2c3e50;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box input:focus {
+            border-color: #27ae60;
+            box-shadow: 0 4px 20px rgba(46, 204, 113, 0.2);
+        }
+
+        .search-box input::placeholder {
+            color: #95a5a6;
+        }
+
+        .continent-section {
+            margin-bottom: 40px;
+        }
+
+        .continent-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #27ae60;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .continent-icon {
+            font-size: 1.3em;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .country-card {
+            background: #fff;
+            border: 2px solid #e8e8e8;
+            border-radius: 16px;
+            padding: 22px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .country-card::after {
+            content: '⚽';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 60px;
+            opacity: 0.04;
+            pointer-events: none;
+        }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            border-color: #27ae60;
+        }
+
+        .country-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed #eee;
+        }
+
+        .country-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .country-flag {
+            font-size: 1em;
+            color: #34495e;
+        }
+
+        .country-code {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.3);
+        }
+
+        .section-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .section-label .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-green {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            box-shadow: 0 2px 5px rgba(46, 204, 113, 0.4);
+        }
+
+        .dot-red {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 2px 5px rgba(231, 76, 60, 0.4);
+        }
+
+        .card-numbers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .card-number {
+            width: 50px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 700;
+            cursor: default;
+            transition: all 0.2s ease;
+        }
+
+        .duplicate {
+            background: linear-gradient(135deg, #d5f5e3, #abebc6);
+            border: 2px solid #82e0aa;
+            color: #1e8449;
+        }
+
+        .missing {
+            background: linear-gradient(135deg, #fadbd8, #f5b7b1);
+            border: 2px solid #f1948a;
+            color: #c0392b;
+        }
+
+        .empty-message {
+            color: #95a5a6;
+            font-style: italic;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #95a5a6;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        footer .ball {
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats {
+                gap: 15px;
+            }
+
+            .stat-box {
+                padding: 18px 25px;
+                min-width: 130px;
+            }
+
+            .stat-box .number {
+                font-size: 2em;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .legend {
+                gap: 15px;
+            }
+
+            .legend-item {
+                padding: 10px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="football-decoration football-1">⚽</div>
+    <div class="football-decoration football-2">⚽</div>
+    <div class="football-decoration football-3">⚽</div>
+    <div class="football-decoration football-4">⚽</div>
+
+    <div class="container">
+        <header>
+            <h1>
+                <span class="ball">⚽</span>
+                Panini 世界杯球星卡清单
+                <span class="ball">⚽</span>
+            </h1>
+            <p>绿色卡片为我重复的，红色卡片为我需要的</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="icon">🔄</div>
+                <div class="number" id="totalDuplicate">0</div>
+                <div class="label">可交换卡片数</div>
+            </div>
+            <div class="stat-box">
+                <div class="icon">🎯</div>
+                <div class="number" id="totalMissing">0</div>
+                <div class="label">需要获取数</div>
+            </div>
+            <div class="stat-box">
+                <div class="icon">🌍</div>
+                <div class="number" id="totalCountries">0</div>
+                <div class="label">涉及国家数</div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color green"></div>
+                <span>我重复的卡（可交换）</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color red"></div>
+                <span>我需要的卡（想换取）</span>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索国家代码（如 BRA、GER、FRA）或中文名...">
+        </div>
+
+        <div id="cardsContainer"></div>
+
+        <footer>
+            <span class="ball">⚽</span>
+            <span>最后更新: 2026年6月23日 | 共同完成集卡目标</span>
+            <span class="ball">⚽</span>
+        </footer>
+    </div>
+
+    <script>
+        const nameMap = {
+            'FWC': '国际足联', 'AUS': '澳大利亚', 'NZL': '新西兰', 'KOR': '韩国',
+            'UZB': '乌兹别克斯坦', 'IRN': '伊朗', 'QAR': '卡塔尔', 'JAP': '日本',
+            'IRQ': '伊拉克', 'JOR': '约旦', 'KSA': '沙特阿拉伯', 'TUN': '突尼斯',
+            'GHA': '加纳', 'CPV': '佛得角', 'SEN': '塞内加尔', 'CIV': '科特迪瓦',
+            'ALG': '阿尔及利亚', 'MAR': '摩洛哥', 'COD': '刚果(金)', 'RSA': '南非',
+            'EGY': '埃及', 'PAN': '巴拿马', 'ARG': '阿根廷', 'URU': '乌拉圭',
+            'BRA': '巴西', 'HAI': '海地', 'COL': '哥伦比亚', 'ECU': '厄瓜多尔',
+            'MEX': '墨西哥', 'USA': '美国', 'CAN': '加拿大', 'CUW': '库拉索',
+            'PAR': '巴拉圭', 'ESP': '西班牙', 'NOR': '挪威', 'AUT': '奥地利',
+            'FRA': '法国', 'ENG': '英格兰', 'BIH': '波黑', 'CRO': '克罗地亚',
+            'SCO': '苏格兰', 'POR': '葡萄牙', 'BEL': '比利时', 'CZE': '捷克',
+            'SUI': '瑞士', 'NED': '荷兰', 'GER': '德国', 'TUR': '土耳其',
+            'SWE': '瑞典'
+        };
+
+        const cardsData = [
+            {"continent": "国际足联", "country": "FWC", "duplicate": [{"number": 0, "count": 1}, {"number": 1, "count": 1}, {"number": 2, "count": 1}, {"number": 3, "count": 1}, {"number": 7, "count": 1}, {"number": 8, "count": 1}, {"number": 13, "count": 2}], "missing": [4]},
+            {"continent": "亚洲", "country": "AUS", "duplicate": [{"number": 1, "count": 1}, {"number": 3, "count": 1}, {"number": 16, "count": 1}, {"number": 18, "count": 2}], "missing": [4, 7, 10]},
+            {"continent": "亚洲", "country": "NZL", "duplicate": [{"number": 1, "count": 1}, {"number": 2, "count": 2}, {"number": 7, "count": 1}, {"number": 9, "count": 1}, {"number": 10, "count": 2}, {"number": 11, "count": 1}, {"number": 12, "count": 1}, {"number": 16, "count": 1}, {"number": 20, "count": 1}], "missing": [3, 4, 5, 8]},
+            {"continent": "亚洲", "country": "KOR", "duplicate": [{"number": 2, "count": 1}, {"number": 5, "count": 1}, {"number": 11, "count": 2}, {"number": 12, "count": 1}, {"number": 17, "count": 1}, {"number": 20, "count": 1}], "missing": [9, 18, 19]},
+            {"continent": "亚洲", "country": "UZB", "duplicate": [{"number": 2, "count": 1}, {"number": 3, "count": 1}, {"number": 6, "count": 1}, {"number": 9, "count": 1}, {"number": 10, "count": 1}, {"number": 12, "count": 1}, {"number": 14, "count": 1}, {"number": 16, "count": 1}, {"number": 20, "count": 1}], "missing": [1, 7, 13, 17]},
+            {"continent": "亚洲", "country": "IRN", "duplicate": [{"number": 1, "count": 2}, {"number": 2, "count": 1}, {"number": 6, "count": 1}, {"number": 14, "count": 1}], "missing": [4, 10, 16, 17, 18, 19]},
+            {"continent": "亚洲", "country": "QAR", "duplicate": [{"number": 2, "count": 1}, {"number": 7, "count": 1}, {"number": 8, "count": 1}, {"number": 16, "count": 1}, {"number": 19, "count": 1}, {"number": 20, "count": 1}], "missing": [6, 14, 17, 18]},
+            {"continent": "亚洲", "country": "JAP", "duplicate": [{"number": 1, "count": 2}, {"number": 9, "count": 1}, {"number": 10, "count": 1}, {"number": 14, "count": 1}, {"number": 17, "count": 1}, {"number": 19, "count": 1}], "missing": [2, 5, 6, 8, 16, 20]},
+            {"continent": "亚洲", "country": "IRQ", "duplicate": [{"number": 8, "count": 1}, {"number": 17, "count": 1}, {"number": 19, "count": 1}, {"number": 20, "count": 1}], "missing": [1, 2, 3, 4, 6, 11, 15, 16, 18]},
+            {"continent": "亚洲", "country": "JOR", "duplicate": [{"number": 1, "count": 1}, {"number": 7, "count": 1}, {"number": 10, "count": 2}, {"number": 13, "count": 1}, {"number": 19, "count": 1}], "missing": [2, 3, 5, 14, 15, 18, 20]},
+            {"continent": "亚洲", "country": "KSA", "duplicate": [{"number": 14, "count": 1}, {"number": 16, "count": 1}, {"number": 17, "count": 1}, {"number": 19, "count": 1}], "missing": [7, 8, 10, 13]},
+            {"continent": "非洲", "country": "TUN", "duplicate": [{"number": 15, "count": 1}], "missing": [1, 5, 10, 13, 18, 19]},
+            {"continent": "非洲", "country": "GHA", "duplicate": [{"number": 1, "count": 2}, {"number": 6, "count": 1}, {"number": 9, "count": 1}, {"number": 10, "count": 1}, {"number": 13, "count": 1}, {"number": 14, "count": 1}, {"number": 15, "count": 1}, {"number": 16, "count": 1}, {"number": 17, "count": 1}, {"number": 18, "count": 1}, {"number": 19, "count": 1}], "missing": [3, 8, 20]},
+            {"continent": "非洲", "country": "CPV", "duplicate": [{"number": 7, "count": 1}, {"number": 14, "count": 1}, {"number": 15, "count": 1}, {"number": 16, "count": 3}], "missing": [1, 6, 8, 9, 10, 11, 13, 17, 19]},
+            {"continent": "非洲", "country": "SEN", "duplicate": [{"number": 2, "count": 1}, {"number": 14, "count": 1}, {"number": 17, "count": 1}, {"number": 18, "count": 1}], "missing": [3, 4, 9, 10, 11, 15, 20]},
+            {"continent": "非洲", "country": "CIV", "duplicate": [{"number": 2, "count": 2}, {"number": 17, "count": 1}, {"number": 20, "count": 1}], "missing": [9, 12, 14, 19]},
+            {"continent": "非洲", "country": "ALG", "duplicate": [{"number": 2, "count": 1}, {"number": 14, "count": 1}, {"number": 18, "count": 2}, {"number": 19, "count": 1}], "missing": [1, 6, 8, 11, 20]},
+            {"continent": "非洲", "country": "MAR", "duplicate": [{"number": 1, "count": 1}, {"number": 6, "count": 1}, {"number": 8, "count": 2}, {"number": 15, "count": 1}, {"number": 20, "count": 1}], "missing": [17, 18]},
+            {"continent": "非洲", "country": "COD", "duplicate": [{"number": 7, "count": 2}, {"number": 8, "count": 1}, {"number": 13, "count": 2}, {"number": 14, "count": 1}, {"number": 18, "count": 1}, {"number": 19, "count": 1}, {"number": 20, "count": 2}], "missing": [2, 3, 6, 16, 17]},
+            {"continent": "非洲", "country": "RSA", "duplicate": [{"number": 10, "count": 1}, {"number": 13, "count": 1}, {"number": 15, "count": 1}, {"number": 16, "count": 1}], "missing": [5, 6, 7, 8, 12, 19]},
+            {"continent": "非洲", "country": "EGY", "duplicate": [{"number": 5, "count": 1}, {"number": 19, "count": 1}], "missing": [13, 17]},
+            {"continent": "中北美", "country": "PAN", "duplicate": [{"number": 1, "count": 1}, {"number": 3, "count": 2}, {"number": 13, "count": 1}, {"number": 15, "count": 2}, {"number": 19, "count": 1}, {"number": 20, "count": 1}], "missing": [2, 9, 12, 14]},
+            {"continent": "南美", "country": "ARG", "duplicate": [{"number": 2, "count": 1}, {"number": 4, "count": 1}, {"number": 12, "count": 1}, {"number": 16, "count": 1}], "missing": [11]},
+            {"continent": "南美", "country": "URU", "duplicate": [{"number": 3, "count": 1}, {"number": 4, "count": 1}, {"number": 6, "count": 1}, {"number": 13, "count": 1}, {"number": 15, "count": 1}], "missing": [11, 19]},
+            {"continent": "南美", "country": "BRA", "duplicate": [{"number": 15, "count": 1}, {"number": 19, "count": 2}], "missing": [1, 4, 9, 12, 16]},
+            {"continent": "中北美", "country": "HAI", "duplicate": [{"number": 1, "count": 2}, {"number": 2, "count": 1}, {"number": 9, "count": 1}, {"number": 12, "count": 1}, {"number": 15, "count": 1}], "missing": [4, 5, 6, 10, 11, 17, 18, 20]},
+            {"continent": "南美", "country": "COL", "duplicate": [{"number": 1, "count": 1}, {"number": 4, "count": 1}, {"number": 10, "count": 1}, {"number": 15, "count": 1}, {"number": 16, "count": 2}], "missing": [8, 9, 11]},
+            {"continent": "南美", "country": "ECU", "duplicate": [{"number": 2, "count": 2}, {"number": 6, "count": 1}, {"number": 8, "count": 1}, {"number": 11, "count": 1}, {"number": 13, "count": 1}, {"number": 17, "count": 1}, {"number": 19, "count": 1}], "missing": [1, 4, 20]},
+            {"continent": "中北美", "country": "MEX", "duplicate": [{"number": 6, "count": 1}, {"number": 7, "count": 1}, {"number": 13, "count": 1}, {"number": 16, "count": 2}, {"number": 17, "count": 2}], "missing": [2, 5, 10, 18]},
+            {"continent": "中北美", "country": "USA", "duplicate": [{"number": 10, "count": 1}, {"number": 12, "count": 2}, {"number": 14, "count": 2}, {"number": 16, "count": 1}, {"number": 17, "count": 1}, {"number": 20, "count": 1}], "missing": [1, 2, 3, 5, 11, 13, 15]},
+            {"continent": "中北美", "country": "CAN", "duplicate": [{"number": 2, "count": 1}, {"number": 3, "count": 1}, {"number": 5, "count": 1}, {"number": 6, "count": 1}, {"number": 10, "count": 1}, {"number": 14, "count": 2}, {"number": 15, "count": 1}], "missing": [12, 16, 17, 18]},
+            {"continent": "中北美", "country": "CUW", "duplicate": [{"number": 3, "count": 1}, {"number": 4, "count": 2}, {"number": 8, "count": 1}, {"number": 11, "count": 1}, {"number": 13, "count": 1}, {"number": 16, "count": 1}, {"number": 17, "count": 1}, {"number": 18, "count": 1}, {"number": 20, "count": 1}], "missing": [1, 2, 10, 12, 14, 15]},
+            {"continent": "南美", "country": "PAR", "duplicate": [{"number": 1, "count": 2}, {"number": 8, "count": 2}], "missing": [2, 5, 7, 11, 15]},
+            {"continent": "欧洲", "country": "ESP", "duplicate": [{"number": 2, "count": 1}, {"number": 8, "count": 2}], "missing": [12, 18, 20]},
+            {"continent": "欧洲", "country": "NOR", "duplicate": [{"number": 6, "count": 1}, {"number": 13, "count": 1}, {"number": 18, "count": 1}, {"number": 19, "count": 1}], "missing": [2, 7, 8, 10]},
+            {"continent": "欧洲", "country": "AUT", "duplicate": [{"number": 3, "count": 1}, {"number": 4, "count": 1}, {"number": 11, "count": 1}, {"number": 13, "count": 1}, {"number": 14, "count": 1}, {"number": 16, "count": 1}, {"number": 17, "count": 1}, {"number": 18, "count": 1}], "missing": [2, 6, 7, 8, 12, 13]},
+            {"continent": "欧洲", "country": "FRA", "duplicate": [{"number": 2, "count": 1}, {"number": 4, "count": 2}, {"number": 5, "count": 1}, {"number": 14, "count": 1}, {"number": 19, "count": 1}], "missing": [7, 9, 11, 12, 15]},
+            {"continent": "欧洲", "country": "ENG", "duplicate": [{"number": 2, "count": 1}, {"number": 4, "count": 2}, {"number": 7, "count": 2}, {"number": 14, "count": 1}, {"number": 15, "count": 1}, {"number": 18, "count": 1}, {"number": 20, "count": 1}], "missing": [6, 11, 13, 17]},
+            {"continent": "欧洲", "country": "BIH", "duplicate": [{"number": 1, "count": 1}, {"number": 2, "count": 1}, {"number": 7, "count": 1}, {"number": 11, "count": 1}, {"number": 15, "count": 1}, {"number": 17, "count": 1}], "missing": [6, 9, 13, 14, 19]},
+            {"continent": "欧洲", "country": "CRO", "duplicate": [{"number": 3, "count": 1}, {"number": 4, "count": 1}, {"number": 10, "count": 1}, {"number": 15, "count": 1}, {"number": 18, "count": 1}], "missing": [5, 11, 12, 16]},
+            {"continent": "欧洲", "country": "SCO", "duplicate": [{"number": 1, "count": 1}, {"number": 7, "count": 1}, {"number": 13, "count": 1}, {"number": 14, "count": 2}], "missing": [3, 6, 10, 16, 17]},
+            {"continent": "欧洲", "country": "POR", "duplicate": [{"number": 1, "count": 1}, {"number": 4, "count": 1}, {"number": 5, "count": 1}, {"number": 7, "count": 1}, {"number": 15, "count": 1}, {"number": 17, "count": 1}], "missing": [2, 8, 20]},
+            {"continent": "欧洲", "country": "BEL", "duplicate": [{"number": 1, "count": 1}, {"number": 5, "count": 2}, {"number": 12, "count": 1}, {"number": 18, "count": 1}], "missing": []},
+            {"continent": "欧洲", "country": "CZE", "duplicate": [{"number": 1, "count": 1}, {"number": 9, "count": 1}, {"number": 10, "count": 1}, {"number": 11, "count": 1}, {"number": 12, "count": 2}, {"number": 17, "count": 1}], "missing": [3, 5, 7, 15, 18, 20]},
+            {"continent": "欧洲", "country": "SUI", "duplicate": [{"number": 1, "count": 2}, {"number": 18, "count": 1}], "missing": [2, 3, 4, 8, 9, 10, 12, 15]},
+            {"continent": "欧洲", "country": "NED", "duplicate": [{"number": 5, "count": 2}, {"number": 7, "count": 3}, {"number": 9, "count": 1}, {"number": 10, "count": 1}, {"number": 11, "count": 1}, {"number": 13, "count": 1}, {"number": 14, "count": 1}, {"number": 15, "count": 1}, {"number": 16, "count": 1}, {"number": 19, "count": 1}], "missing": [1, 8, 18, 20]},
+            {"continent": "欧洲", "country": "GER", "duplicate": [{"number": 2, "count": 1}, {"number": 3, "count": 1}, {"number": 6, "count": 1}, {"number": 11, "count": 1}, {"number": 13, "count": 2}, {"number": 14, "count": 1}], "missing": [4, 5, 7, 8, 16, 18, 19]},
+            {"continent": "欧洲", "country": "TUR", "duplicate": [{"number": 6, "count": 1}, {"number": 7, "count": 2}, {"number": 8, "count": 2}, {"number": 11, "count": 1}, {"number": 12, "count": 2}, {"number": 14, "count": 2}, {"number": 20, "count": 1}], "missing": [2, 13, 16]},
+            {"continent": "欧洲", "country": "SWE", "duplicate": [{"number": 6, "count": 2}, {"number": 7, "count": 1}, {"number": 12, "count": 1}, {"number": 15, "count": 2}], "missing": [2, 3, 4, 5, 10, 11, 13, 14, 17, 20]}
+        ];
+
+        const continentOrder = ['国际足联', '亚洲', '非洲', '南美', '中北美', '欧洲'];
+        const continentIcons = {
+            '国际足联': '🏆', '亚洲': '🌏', '非洲': '🌍',
+            '南美': '🌎', '中北美': '🌎', '欧洲': '🌍'
+        };
+
+        function groupByContinent(data) {
+            const grouped = {};
+            data.forEach(item => {
+                if (!grouped[item.continent]) {
+                    grouped[item.continent] = [];
+                }
+                grouped[item.continent].push(item);
+            });
+            return grouped;
+        }
+
+        function renderCards(searchTerm = '') {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+
+            const groupedByContinent = groupByContinent(cardsData);
+
+            let totalDuplicate = 0;
+            let totalMissing = 0;
+            cardsData.forEach(item => {
+                item.duplicate.forEach(d => { totalDuplicate += d.count; });
+                totalMissing += item.missing.length;
+            });
+            document.getElementById('totalDuplicate').textContent = totalDuplicate;
+            document.getElementById('totalMissing').textContent = totalMissing;
+            document.getElementById('totalCountries').textContent = cardsData.length;
+
+            continentOrder.forEach(continent => {
+                if (!groupedByContinent[continent]) return;
+
+                const countries = groupedByContinent[continent].filter(item => {
+                    return searchTerm === '' ||
+                        item.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        (nameMap[item.country] || '').includes(searchTerm);
+                });
+
+                if (countries.length === 0) return;
+
+                const section = document.createElement('div');
+                section.className = 'continent-section';
+                section.innerHTML = `
+                    <h2 class="continent-title">
+                        <span class="continent-icon">${continentIcons[continent] || '🌍'}</span>
+                        ${continent}
+                    </h2>
+                    <div class="cards-grid">
+                        ${countries.map(item => {
+                            const countryName = nameMap[item.country] || item.country;
+                            const expandedDuplicate = [];
+                            item.duplicate.forEach(d => {
+                                for (let i = 0; i < d.count; i++) {
+                                    expandedDuplicate.push(d.number);
+                                }
+                            });
+
+                            return `
+                            <div class="country-card" data-country="${item.country}">
+                                <div class="country-header">
+                                    <span class="country-name">
+                                        <span class="country-flag">${countryName}</span>
+                                        <span class="country-code">${item.country}</span>
+                                    </span>
+                                </div>
+                                ${expandedDuplicate.length > 0 ? `
+                                    <div class="section-label">
+                                        <span class="dot dot-green"></span>
+                                        可交换 (${expandedDuplicate.length}张)
+                                    </div>
+                                    <div class="card-numbers">
+                                        ${expandedDuplicate.map(num =>
+                                            `<span class="card-number duplicate">${num}</span>`
+                                        ).join('')}
+                                    </div>
+                                ` : ''}
+                                ${item.missing.length > 0 ? `
+                                    <div class="section-label">
+                                        <span class="dot dot-red"></span>
+                                        需要 (${item.missing.length}张)
+                                    </div>
+                                    <div class="card-numbers">
+                                        ${item.missing.map(m =>
+                                            `<span class="card-number missing">${m}</span>`
+                                        ).join('')}
+                                    </div>
+                                ` : ''}
+                                ${expandedDuplicate.length === 0 && item.missing.length === 0 ?
+                                    '<div class="empty-message">🎉 已完成收集！</div>' : ''
+                                }
+                            </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                container.appendChild(section);
+            });
+        }
+
+        renderCards();
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderCards(e.target.value);
+        });
+    </script>
+</body>
+</html>
