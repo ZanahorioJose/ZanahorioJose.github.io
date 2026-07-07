@@ -57,3 +57,20 @@ category: '生活'
         我觉得对于我的阅历来说就实现**第二种**好了。
         
     - **特点**：新奇的建筑，不在场证明，通过凶手的破绽而不是偶然性证据来破案。
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="ZanahorioJose/ZanahorioJose.github.io"
+        data-repo-id="R_kgDOSWl5yg"
+        data-category="Blog Comment"
+        data-category-id="DIC_kwDOSWl5ys4DArDd"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
