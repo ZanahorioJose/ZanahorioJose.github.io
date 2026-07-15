@@ -287,8 +287,8 @@ aside:
     button:
       enable: true
       icon: fab fa-github
-      text: Follow Me
-      link: https://github.com/xxxxxx
+      text: Follow this cool guy
+      link: https://github.com/ZanahorioJose
   card_announcement:
     enable: true
     content: 如果对创建博客感兴趣，可以来联系我
