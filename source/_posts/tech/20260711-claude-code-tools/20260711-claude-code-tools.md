@@ -1,8 +1,8 @@
 ---
 title: Claude Code 使用技巧（个人向）
 date: 2026-07-11 00:00:00
-tags: ['Claude Code']
-category: '开发'
+tags: ['Claude Code', '教程', 'AI Agent']
+category: ['技术', 'AI']
 ---
 
 # 写在前面
