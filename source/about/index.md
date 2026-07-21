@@ -6,7 +6,7 @@ layout: page
 
 # 关于我
 
-我是小球藻，关于这个网站的设计初衷，可以前往我的{% post_link 20260509-first-meeting/20260509-first-meeting 第一篇文章 %}详细了解。
+我是小球藻，关于这个网站的设计初衷，可以前往我的{% post_link first-greeting/first-greeting 第一篇文章 %}详细了解。
 
 
 ### 名字的由来
