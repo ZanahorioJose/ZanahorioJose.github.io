@@ -65,6 +65,29 @@ jersey/
 
 队徽用连字符（`-`），照片用下划线（`_`），便于一眼区分文件类型。
 
+跨年赛季（如 2024/25）在文件名里用连字符代替斜杠：`chelsea_2024-25_home.jpg`。
+
+### 球队 slug 对照（用于照片命名）
+
+| 中文队名 | slug |
+| --- | --- |
+| 上海海港 | `port` |
+| 上海申花 | `shenhua` |
+| 北京国安 | `guoan` |
+| 山东泰山 | `taishan` |
+| 成都蓉城 | `rongcheng` |
+| 浙江队 | `zhejiang` |
+| 长春亚泰 | `yatai` |
+| 深圳 | `shenzhen` |
+| 武汉三镇 | `wuhan` |
+| 重庆 | `chongqing` |
+| 河南 | `henan` |
+| 切尔西 | `chelsea` |
+| 阿森纳 | `arsenal` |
+| 德国队 | `germany` |
+| 意大利 | `italy` |
+| 阿根廷 | `argentina` |
+
 ## 数据备份
 
 - 管理版顶部可「导出 JSON」/「导入 JSON」做备份与恢复
