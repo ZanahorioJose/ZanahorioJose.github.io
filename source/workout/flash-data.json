@@ -1,0 +1,34 @@
+[
+  {
+    "img": "assets/bg-right.webp",
+    "label": "健身房"
+  },
+  {
+    "img": "assets/gallery-1.jpg",
+    "label": "跳进染缸"
+  },
+  {
+    "img": "assets/gallery-2.jpg",
+    "label": "肌肉奶盖"
+  },
+  {
+    "img": "assets/gallery-3.jpg",
+    "label": "健身奖励"
+  },
+  {
+    "img": "assets/gallery-4.jpg",
+    "label": "别感冒"
+  },
+  {
+    "img": "assets/gallery-5.jpg",
+    "label": "交易员的基本素养"
+  },
+  {
+    "img": "assets/gallery-6.jpg",
+    "label": "唐"
+  },
+  {
+    "img": "assets/gallery-7.jpg",
+    "label": "空调风"
+  }
+]
