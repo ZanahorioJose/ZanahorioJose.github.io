@@ -212,7 +212,7 @@ window.LEDGER_DATA = {
       "result": "1 : 1",
       "price": 220,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-03-14_zhejiang_vs_shenhua.jpg",
       "homeLogo": "assets/live/logos/2026/zhejiang-professional-v2022.svg",
       "awayLogo": "assets/live/logos/2026/shanghai-shenhua-v2022.svg"
     },
@@ -226,7 +226,7 @@ window.LEDGER_DATA = {
       "result": "1 : 0",
       "price": 320,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-04-11_shenhua_vs_port.jpg",
       "homeLogo": "assets/live/logos/2026/shanghai-shenhua-v2022.svg",
       "awayLogo": "assets/live/logos/2026/shanghai-port-v2021.svg"
     },
@@ -240,7 +240,7 @@ window.LEDGER_DATA = {
       "result": "4 : 0",
       "price": 140,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-04-25_port_vs_wuhan.jpg",
       "homeLogo": "assets/live/logos/2026/shanghai-port-v2021.svg",
       "awayLogo": "assets/live/logos/2026/wuhan-three-towns-v2019.svg"
     },
@@ -254,7 +254,7 @@ window.LEDGER_DATA = {
       "result": "2 : 2",
       "price": 150,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-05-09_shenhua_vs_chongqing.jpg",
       "homeLogo": "assets/live/logos/2026/shanghai-shenhua-v2022.svg",
       "awayLogo": "assets/live/logos/2026/chongqing-tonglianglong-v2023.svg"
     },
@@ -268,7 +268,7 @@ window.LEDGER_DATA = {
       "result": "2 : 2",
       "price": 80,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-05-15_port_vs_zhejiang.jpg",
       "homeLogo": "assets/live/logos/2026/shanghai-port-v2021.svg",
       "awayLogo": "assets/live/logos/2026/zhejiang-professional-v2022.svg"
     },
@@ -282,7 +282,7 @@ window.LEDGER_DATA = {
       "result": "3 : 2",
       "price": 150,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-07-05_shenhua_vs_zhejiang.jpg",
       "homeLogo": "assets/live/logos/2026/shanghai-shenhua-v2022.svg",
       "awayLogo": "assets/live/logos/2026/zhejiang-professional-v2022.svg"
     },
@@ -296,7 +296,7 @@ window.LEDGER_DATA = {
       "result": "2 : 0",
       "price": 330,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-07-25_port_vs_shenhua.jpg",
       "homeLogo": "assets/live/logos/2026/shanghai-port-v2021.svg",
       "awayLogo": "assets/live/logos/2026/shanghai-shenhua-v2022.svg"
     },
@@ -310,7 +310,7 @@ window.LEDGER_DATA = {
       "result": "4 : 1",
       "price": 200,
       "note": "",
-      "photo": "",
+      "photo": "assets/live/2026-08-15_shenhua_vs_henan.jpg",
       "homeLogo": "assets/live/logos/2026/shanghai-shenhua-v2022.svg",
       "awayLogo": "assets/live/logos/2026/henan-fc-v2023.svg"
     },
@@ -384,7 +384,7 @@ window.LEDGER_DATA = {
       "price": 849,
       "note": "短袖+印号",
       "teamLogo": "assets/jersey/logos/germany-national-team-v2021.svg",
-      "photo": ""
+      "photo": "assets/jersey/germany_2026_home.jpg"
     },
     {
       "id": "s-jersey-5",
@@ -437,7 +437,7 @@ window.LEDGER_DATA = {
       "price": 999,
       "note": "短袖",
       "teamLogo": "assets/jersey/logos/argentina-national-team-v2024.svg",
-      "photo": ""
+      "photo": "assets/jersey/argentina_2026_away.jpg"
     },
   ]
 };
