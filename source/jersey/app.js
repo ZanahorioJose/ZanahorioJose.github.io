@@ -405,6 +405,34 @@
     });
   }
 
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  function openLightbox(img) {
+    lightboxImg.src = img.currentSrc || img.src;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (lightbox && lightboxImg) {
+    document.addEventListener('click', (event) => {
+      if (lightbox.classList.contains('open')) {
+        closeLightbox();
+        return;
+      }
+      const img = event.target.closest('.photo.has-photo img');
+      if (img) openLightbox(img);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+  }
+  
   function init() {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', renderAll);
