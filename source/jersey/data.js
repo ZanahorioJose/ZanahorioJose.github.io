@@ -491,7 +491,7 @@ window.LEDGER_DATA = {
       "price": 719,
       "note": "短袖",
       "teamLogo": "assets/jersey/logos/chelsea-fc-v2006.svg",
-      "photo": ""
+      "photo": "assets/jersey/chelsea_2026-27_away_2.jpg"
     },
   ]
 };
